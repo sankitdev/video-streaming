@@ -3,8 +3,18 @@ import cors from "cors";
 import helmet from "helmet";
 import { errorHandler } from "@/middleware/errorHandler";
 import { userRouter } from "@/routes";
+import { Server } from "socket.io";
+import { createServer } from "node:http";
 
 export const app = express();
+const server = createServer(app);
+
+// socket io
+export const io = new Server(server, {
+  cors: {
+    origin: "*",
+  },
+});
 
 // Security middleware
 app.use(helmet());
